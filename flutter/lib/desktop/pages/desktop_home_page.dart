@@ -119,7 +119,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                launchUrl(Uri.parse('https://rustdesk.com'));
+                launchUrl(Uri.parse('https://breitenstein.it/'));
               },
               child: Opacity(
                   opacity: 0.5,
@@ -478,12 +478,13 @@ class _DesktopHomePageState extends State<DesktopHomePage>
           bind.mainGotoInstall();
         });
       } else if (bind.mainIsInstalledLowerVersion()) {
-        return buildInstallCard(
-            "Status", "Your installation is lower version.", "Click to upgrade",
-            () async {
-          await rustDeskWinManager.closeAllSubWindows();
-          bind.mainUpdateMe();
-        });
+        // return buildInstallCard(
+        //     "Status", "Your installation is lower version.", "Click to upgrade",
+        //     () async {
+        //   await rustDeskWinManager.closeAllSubWindows();
+        //   bind.mainUpdateMe();
+        // });
+        
       }
     } else if (isMacOS) {
       if (!(bind.isOutgoingOnly() ||
