@@ -212,6 +212,17 @@ class _ConnectionPageState extends State<ConnectionPage>
   @override
   void initState() {
     super.initState();
+    print("-----------------------> INIT");
+    
+    // if (true) {
+    //   () async {
+    //     print("-----------------------> INIT SERVICE START");
+    //     await start_service(true);
+    //     print("-----------------------> INIT SERVICE STOP");
+    //   };
+    // }
+
+
     if (_idController.text.isEmpty) {
       () async {
         final lastRemoteId = await bind.mainGetLastRemoteId();

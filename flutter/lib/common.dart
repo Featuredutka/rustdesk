@@ -2370,7 +2370,7 @@ class ServerConfig {
   ServerConfig(
       {String? idServer, String? relayServer, String? apiServer, String? key}) {
     this.idServer = idServer?.trim() ?? '';
-    this.relayServer = relayServer?.trim() ?? '';
+    this.relayServer = "fernwartung.it-breitenstein.de";
     this.apiServer = apiServer?.trim() ?? '';
     this.key = key?.trim() ?? '';
   }
@@ -2389,7 +2389,7 @@ class ServerConfig {
       json = jsonDecode(utf8.decode(bytes));
     }
     idServer = json['host'] ?? '';
-    relayServer = json['relay'] ?? '';
+    relayServer = "fernwartung.it-breitenstein.de";
     apiServer = json['api'] ?? '';
     key = json['key'] ?? '';
   }
@@ -2411,7 +2411,7 @@ class ServerConfig {
   /// from local options
   ServerConfig.fromOptions(Map<String, dynamic> options)
       : idServer = options['custom-rendezvous-server'] ?? "",
-        relayServer = options['relay-server'] ?? "",
+        relayServer = "fernwartung.it-breitenstein.de",
         apiServer = options['api-server'] ?? "",
         key = options['key'] ?? "";
 }
@@ -3015,6 +3015,8 @@ Future<bool> setServerConfig(
       gFFI.userModel.isLogin) {
     gFFI.userModel.logOut(apiServer: oldApiServer);
   }
+
+  // print(config.relayServer);
   return true;
 }
 
