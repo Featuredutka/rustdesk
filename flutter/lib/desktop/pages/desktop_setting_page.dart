@@ -1029,7 +1029,7 @@ class _SafetyState extends State<_Safety> with AutomaticKeepAliveClientMixin {
     bool enabled = !locked;
     // Simple temp wrapper for PR check
     tmpWrapper() {
-      String accessMode = bind.mainGetOptionSync(key: kOptionAccessMode);
+      String accessMode = 'full';//bind.mainGetOptionSync(key: 'access-mode');
       _AccessMode mode;
       if (accessMode == 'full') {
         mode = _AccessMode.full;
