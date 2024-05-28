@@ -308,9 +308,7 @@ class _ConnectionPageState extends State<ConnectionPage>
     
     final isOutgoingOnly = bind.isOutgoingOnly();
 
-    return ConstrainedBox(
-        constraints: const BoxConstraints(minWidth: 300, minHeight: 445, maxHeight: 445, maxWidth: 300),
-        child: Column(
+    return Column(
       
       children: [
         Expanded(
@@ -325,14 +323,13 @@ class _ConnectionPageState extends State<ConnectionPage>
             ).marginOnly(top: 22),
             
             SizedBox(height: 12),
-            // Divider().paddingOnly(right: 12),
-            // Expanded(child: PeerTabPage()),
+            Divider().paddingOnly(right: 12),
+            Expanded(child: PeerTabPage()),
           ],
         ).paddingOnly(left: 12.0)),
         if (!isOutgoingOnly) const Divider(height: 1),
         if (!isOutgoingOnly) OnlineStatusWidget()
       ],
-    )
     );
   }
 
