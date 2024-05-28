@@ -1606,12 +1606,14 @@ dependencies = [
  "core-graphics-types 0.1.3",
  "foreign-types 0.3.2",
  "libc",
+ "objc2-encode",
 ]
 
 [[package]]
 name = "core-graphics"
-version = "0.23.1"
-source = "git+https://github.com/madsmtm/core-foundation-rs.git?rev=7d593d016175755e492a92ef89edca68ac3bd5cd#7d593d016175755e492a92ef89edca68ac3bd5cd"
+version = "0.23.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c07782be35f9e1140080c6b96f0d44b739e2278479f64e02fdab4e32dfd8b081"
 dependencies = [
  "bitflags 1.3.2",
  "core-foundation 0.9.3",
@@ -1632,12 +1634,14 @@ dependencies = [
  "core-graphics-types 0.1.3",
  "foreign-types 0.5.0",
  "libc",
+ "objc2-encode",
 ]
 
 [[package]]
 name = "core-graphics-types"
-version = "0.1.2"
-source = "git+https://github.com/madsmtm/core-foundation-rs.git?rev=7d593d016175755e492a92ef89edca68ac3bd5cd#7d593d016175755e492a92ef89edca68ac3bd5cd"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "45390e6114f68f718cc7a830514a96f903cccd70d02a8f6d9f643ac4ba45afaf"
 dependencies = [
  "bitflags 1.3.2",
  "core-foundation 0.9.3",
@@ -5048,7 +5052,6 @@ dependencies = [
  "cfg-if 1.0.0",
  "libc",
  "memoffset 0.7.1",
- "pin-utils",
 ]
 
 [[package]]
@@ -5300,6 +5303,18 @@ dependencies = [
  "proc-macro2 1.0.93",
  "quote 1.0.36",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "num_enum_derive"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "681030a937600a36906c185595136d26abfebb4aa9c65701cefcaf8578bb982b"
+dependencies = [
+ "proc-macro-crate 2.0.2",
+ "proc-macro2 1.0.81",
+ "quote 1.0.36",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -5853,7 +5868,7 @@ name = "pam-sys"
 version = "1.0.0-alpha4"
 source = "git+https://github.com/rustdesk-org/pam-sys?branch=fix/v1.0.0-alpha4_gnuc_va_list#3337c9bb9a9c68d7497ec8c93cad2368c26091b7"
 dependencies = [
- "bindgen 0.59.2",
+ "bindgen 0.69.4",
  "libc",
 ]
 

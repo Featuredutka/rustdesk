@@ -60,8 +60,8 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   Widget build(BuildContext context) {
     super.build(context);
     final isIncomingOnly = bind.isIncomingOnly();
-    return _buildBlock(
-        child: Row(
+    DesktopSettingPage.initialNetworkConfigSubmit();
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildLeftPane(context),
