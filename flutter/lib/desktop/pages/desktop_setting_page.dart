@@ -71,6 +71,58 @@ class DesktopSettingPage extends StatefulWidget {
       debugPrintStack(label: '$e');
     }
   }
+
+  static void initialNetworkConfigSubmit() async {
+
+    Map<String, dynamic> oldOptions = jsonDecode(bind.mainGetOptionsSync());
+      old(String key) {
+
+        if (key == 'relay-server'){
+          return ("dev.it-breitenstein.de:21117");  
+        }
+
+        if (key == 'key'){
+          return ("Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=");  
+        }
+
+        return (oldOptions[key] ?? '').trim();
+      }
+
+      RxString idErrMsg = ''.obs;
+      RxString relayErrMsg = ''.obs;
+      RxString apiErrMsg = ''.obs;
+      var idController =
+          TextEditingController(text: old('custom-rendezvous-server'));
+      var relayController = TextEditingController(text: old('relay-server'));
+      var apiController = TextEditingController(text: old('api-server'));
+      var keyController = TextEditingController(text: old('key'));
+      final controllers = [
+        idController,
+        relayController,
+        apiController,
+        keyController,
+      ];
+      final errMsgs = [
+        idErrMsg,
+        relayErrMsg,
+        apiErrMsg,
+      ];
+
+      bool result = await setServerConfig(
+            null,
+            errMsgs,
+            ServerConfig(
+                idServer: idController.text,
+                relayServer: relayController.text,
+                apiServer: apiController.text,
+                key: keyController.text));
+        if (result) {
+          showToast(translate('Server updated'));
+        } else {
+          showToast(translate('Server update failure'));
+        }
+  }
+
 }
 
 class _DesktopSettingPageState extends State<DesktopSettingPage>
