@@ -169,7 +169,7 @@ span.clear-input:hover {
 .card-connect {
     @CARD;
     width: 320px;
-    height: 300px;
+    /* height: 300px; */
 }
 
 .right-buttons {
