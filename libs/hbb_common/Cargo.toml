@@ -1,6 +1,6 @@
 [package]
 name = "hbb_common"
-version = "1.2.4"
+version = "1.2.5"
 authors = ["IT-Breitenstein <info@breitenstein.it>"]
 edition = "2021"
 

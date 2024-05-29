@@ -167,7 +167,7 @@ pub const PLATFORM_LINUX: &str = "Linux";
 pub const PLATFORM_MACOS: &str = "Mac OS";
 pub const PLATFORM_ANDROID: &str = "Android";
 
-const MIN_VER_MULTI_UI_SESSION: &str = "1.2.4";
+const MIN_VER_MULTI_UI_SESSION: &str = "1.2.5";
 
 pub mod input {
     pub const MOUSE_TYPE_MOVE: i32 = 0;

@@ -933,7 +933,7 @@ impl<T: InvokeUiSession> Remote<T> {
 
     async fn send_toggle_privacy_mode_msg(&self, peer: &mut Stream) {
         let lc = self.handler.lc.read().unwrap();
-        if lc.version >= hbb_common::get_version_number("1.2.4")
+        if lc.version >= hbb_common::get_version_number("1.2.5")
             && lc.get_toggle_option("privacy-mode")
         {
             let impl_key = lc.get_option("privacy-mode-impl-key");
@@ -1651,7 +1651,7 @@ impl<T: InvokeUiSession> Remote<T> {
         let mut config = self.handler.load_config();
         config.privacy_mode.v = on;
         if on {
-            // For compatibility, version < 1.2.4, the default value is 'privacy_mode_impl_mag'.
+            // For compatibility, version < 1.2.5, the default value is 'privacy_mode_impl_mag'.
             let impl_key = if impl_key.is_empty() {
                 "privacy_mode_impl_mag".to_string()
             } else {

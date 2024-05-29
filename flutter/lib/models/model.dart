@@ -1039,7 +1039,7 @@ class FfiModel with ChangeNotifier {
       if (isOn) {
         var privacyModeImpl = await bind.sessionGetOption(
             sessionId: sessionId, arg: 'privacy-mode-impl-key');
-        // For compatibility, version < 1.2.4, the default value is 'privacy_mode_impl_mag'.
+        // For compatibility, version < 1.2.5, the default value is 'privacy_mode_impl_mag'.
         final initDefaultPrivacyMode = 'privacy_mode_impl_mag';
         PrivacyModeState.find(peerId).value =
             privacyModeImpl ?? initDefaultPrivacyMode;
@@ -2064,8 +2064,8 @@ class RecordingModel with ChangeNotifier {
     await _sendStatusMessage(sessionId, pi, _start);
     if (_start) {
       sessionRefreshVideo(sessionId, pi);
-      if (versionCmp(pi.version, '1.2.4') >= 0) {
-        // will not receive SwitchDisplay since 1.2.4
+      if (versionCmp(pi.version, '1.2.5') >= 0) {
+        // will not receive SwitchDisplay since 1.2.5
         onSwitchDisplay();
       }
     } else {

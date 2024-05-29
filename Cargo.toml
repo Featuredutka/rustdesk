@@ -1,6 +1,6 @@
 [package]
 name = "IT-Breitenstein-Fernwartung"
-version = "1.2.4"
+version = "1.2.5"
 authors = ["IT-Breitenstein-Fernwartung <support@breitenstein.it>"]
 edition = "2021"
 build= "build.rs"

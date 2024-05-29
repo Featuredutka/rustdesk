@@ -1333,7 +1333,7 @@ impl Connection {
                 && raii::AuthedConnID::remote_and_file_conn_count() == 1
                 && sessions.len() > 1
                 && sessions.iter().any(|e| e.sid == current_sid)
-                && (get_version_number(&self.lr.version) > get_version_number("1.2.4")
+                && (get_version_number(&self.lr.version) > get_version_number("1.2.5")
                     || self.lr.option.support_windows_specific_session == BoolOption::Yes.into())
             {
                 pi.windows_sessions = Some(WindowsSessions {
@@ -2477,7 +2477,7 @@ impl Connection {
             }
 
             // Send display changed message.
-            // 1. For compatibility with old versions ( < 1.2.4 ).
+            // 1. For compatibility with old versions ( < 1.2.5 ).
             // 2. Sciter version.
             // 3. Update `SupportedResolutions`.
             if let Some(msg_out) = video_service::make_display_changed_msg(self.display_idx, None) {
@@ -2495,7 +2495,7 @@ impl Connection {
                 lock.add_service(Box::new(video_service::new(display_idx)));
             }
         }
-        // For versions greater than 1.2.4, a `CaptureDisplays` message will be sent immediately.
+        // For versions greater than 1.2.5, a `CaptureDisplays` message will be sent immediately.
         // Unnecessary capturers will be removed then.
         if !crate::common::is_support_multi_ui_session(&self.lr.version) {
             lock.subscribe(&old_service_name, self.inner.clone(), false);
@@ -2797,9 +2797,9 @@ impl Connection {
                 }
             }
         }
-        // For compatibility with old versions ( < 1.2.4 ).
+        // For compatibility with old versions ( < 1.2.5 ).
         if hbb_common::get_version_number(&self.lr.version)
-            < hbb_common::get_version_number("1.2.4")
+            < hbb_common::get_version_number("1.2.5")
         {
             if let Ok(q) = o.privacy_mode.enum_value() {
                 if self.keyboard {

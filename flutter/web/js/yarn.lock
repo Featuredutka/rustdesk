@@ -234,7 +234,7 @@ __metadata:
     minipass: ^3.1.6
     minipass-collect: ^1.0.2
     minipass-flush: ^1.0.5
-    minipass-pipeline: ^1.2.4
+    minipass-pipeline: ^1.2.5
     mkdirp: ^1.0.4
     p-map: ^4.0.0
     promise-inflight: ^1.0.1
@@ -824,7 +824,7 @@ __metadata:
     minipass-collect: ^1.0.2
     minipass-fetch: ^2.0.3
     minipass-flush: ^1.0.5
-    minipass-pipeline: ^1.2.4
+    minipass-pipeline: ^1.2.5
     negotiator: ^0.6.3
     promise-retry: ^2.0.1
     socks-proxy-agent: ^6.1.1
@@ -884,9 +884,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minipass-pipeline@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "minipass-pipeline@npm:1.2.4"
+"minipass-pipeline@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "minipass-pipeline@npm:1.2.5"
   dependencies:
     minipass: ^3.0.0
   checksum: b14240dac0d29823c3d5911c286069e36d0b81173d7bdf07a7e4a91ecdef92cdff4baaf31ea3746f1c61e0957f652e641223970870e2353593f382112257971b

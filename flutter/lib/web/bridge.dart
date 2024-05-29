@@ -1536,7 +1536,7 @@ class RustdeskImpl {
   }
 
   bool isSupportMultiUiSession({required String version, dynamic hint}) {
-    return versionToNumber(v: version) > versionToNumber(v: '1.2.4');
+    return versionToNumber(v: version) > versionToNumber(v: '1.2.5');
   }
 
   bool isSelinuxEnforcing({dynamic hint}) {

@@ -21,7 +21,7 @@ def make_parser():
         "-an", "--app-name", type=str, default="RustDesk", help="The app name."
     )
     parser.add_argument(
-        "-v", "--version", type=str, default="1.2.4", help="The app version."
+        "-v", "--version", type=str, default="1.2.5", help="The app version."
     )
     parser.add_argument(
         "-m",
