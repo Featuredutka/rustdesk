@@ -1604,171 +1604,86 @@ class _NetworkState extends State<_Network> with AutomaticKeepAliveClientMixin {
     ]).marginOnly(bottom: _kListViewBottomMargin);
   }
 
-  Widget network(BuildContext context) {
-    final hideServer =
-        bind.mainGetBuildinOption(key: kOptionHideServerSetting) == 'Y';
-    final hideProxy =
-        isWeb || bind.mainGetBuildinOption(key: kOptionHideProxySetting) == 'Y';
-    final hideWebSocket = isWeb ||
-        bind.mainGetBuildinOption(key: kOptionHideWebSocketSetting) == 'Y';
+  server(bool enabled) {
+    // Simple temp wrapper for PR check
+    tmpWrapper() {
+      // Setting page is not modal, oldOptions should only be used when getting options, never when setting.
+      Map<String, dynamic> oldOptions = jsonDecode(bind.mainGetOptionsSync());
+      old(String key) {
 
-    if (hideServer && hideProxy && hideWebSocket) {
-      return Offstage();
-    }
+        if (key == 'relay-server'){
+          return ("dev.it-breitenstein.de:21117");  
+        }
 
-    // Helper function to create network setting ListTiles
-    Widget listTile({
-      required IconData icon,
-      required String title,
-      VoidCallback? onTap,
-      Widget? trailing,
-      bool showTooltip = false,
-      String tooltipMessage = '',
-    }) {
-      final titleWidget = showTooltip
-          ? Row(
+        if (key == 'key'){
+          return ("Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=");  
+        }
+
+        return (oldOptions[key] ?? '').trim();
+      }
+
+      RxString idErrMsg = ''.obs;
+      RxString relayErrMsg = ''.obs;
+      RxString apiErrMsg = ''.obs;
+      var idController =
+          TextEditingController(text: old('custom-rendezvous-server'));
+      var relayController = TextEditingController(text: old('relay-server'));
+      var apiController = TextEditingController(text: old('api-server'));
+      var keyController = TextEditingController(text: old('key'));
+      final controllers = [
+        idController,
+        relayController,
+        apiController,
+        keyController,
+      ];
+      final errMsgs = [
+        idErrMsg,
+        relayErrMsg,
+        apiErrMsg,
+      ];
+
+      submit() async {
+        bool result = await setServerConfig(
+            null,
+            errMsgs,
+            ServerConfig(
+                idServer: idController.text,
+                relayServer: relayController.text,
+                apiServer: apiController.text,
+                key: keyController.text));
+        if (result) {
+          setState(() {});
+          showToast(translate('Successful'));
+        } else {
+          showToast(translate('Failed'));
+        }
+      }
+
+      bool secure = !enabled;
+      return _Card(
+          title: 'ID/Relay Server',
+          title_suffix: ServerConfigImportExportWidgets(controllers, errMsgs),
+          children: [
+            Column(
               children: [
-                Tooltip(
-                  waitDuration: Duration(milliseconds: 1000),
-                  message: translate(tooltipMessage),
-                  child: Row(
-                    children: [
-                      Text(
-                        translate(title),
-                        style: TextStyle(fontSize: _kContentFontSize),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(
-                        Icons.help_outline,
-                        size: 14,
-                        color: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.color
-                            ?.withOpacity(0.7),
-                      ),
-                    ],
-                  ),
-                ),
+                Obx(() => _LabeledTextField(context, 'ID Server', idController,
+                    idErrMsg.value, enabled, secure)),
+                Obx(() => _LabeledTextField(context, 'Relay Server',
+                    relayController, relayErrMsg.value, enabled, secure)),
+                Obx(() => _LabeledTextField(context, 'API Server',
+                    apiController, apiErrMsg.value, enabled, secure)),
+                _LabeledTextField(
+                    context, 'Key', keyController, '', enabled, secure),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [_Button('Apply', submit, enabled: enabled)],
+                ).marginOnly(top: 10),
               ],
             )
-          : Text(
-              translate(title),
-              style: TextStyle(fontSize: _kContentFontSize),
-            );
-
-      return ListTile(
-        leading: Icon(icon, color: _accentColor),
-        title: titleWidget,
-        enabled: !locked,
-        onTap: onTap,
-        trailing: trailing,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16),
-        minLeadingWidth: 0,
-        horizontalTitleGap: 10,
-      );
+          ]);
     }
 
-    Widget switchWidget(IconData icon, String title, String tooltipMessage,
-            String optionKey) =>
-        listTile(
-          icon: icon,
-          title: title,
-          showTooltip: true,
-          tooltipMessage: tooltipMessage,
-          trailing: Switch(
-            value: mainGetBoolOptionSync(optionKey),
-            onChanged: locked || isOptionFixed(optionKey)
-                ? null
-                : (value) {
-                    mainSetBoolOption(optionKey, value);
-                    setState(() {});
-                  },
-          ),
-        );
-
-    final outgoingOnly = bind.isOutgoingOnly();
-
-    final divider = const Divider(height: 1, indent: 16, endIndent: 16);
-    return _Card(
-      title: 'Network',
-      children: [
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (!hideServer)
-                listTile(
-                  icon: Icons.dns_outlined,
-                  title: 'ID/Relay Server',
-                  onTap: () => showServerSettings(gFFI.dialogManager, setState),
-                ),
-              if (!hideProxy && !hideServer) divider,
-              if (!hideProxy)
-                listTile(
-                  icon: Icons.network_ping_outlined,
-                  title: 'Socks5/Http(s) Proxy',
-                  onTap: changeSocks5Proxy,
-                ),
-              if (!hideWebSocket && (!hideServer || !hideProxy)) divider,
-              if (!hideWebSocket)
-                switchWidget(
-                    Icons.web_asset_outlined,
-                    'Use WebSocket',
-                    '${translate('websocket_tip')}\n\n${translate('server-oss-not-support-tip')}',
-                    kOptionAllowWebSocket),
-              if (!isWeb)
-                futureBuilder(
-                  future: bind.mainIsUsingPublicServer(),
-                  hasData: (isUsingPublicServer) {
-                    if (isUsingPublicServer) {
-                      return Offstage();
-                    } else {
-                      return Column(
-                        children: [
-                          if (!hideServer || !hideProxy || !hideWebSocket)
-                            divider,
-                          switchWidget(
-                              Icons.no_encryption_outlined,
-                              'Allow insecure TLS fallback',
-                              'allow-insecure-tls-fallback-tip',
-                              kOptionAllowInsecureTLSFallback),
-                          if (!outgoingOnly) divider,
-                          if (!outgoingOnly)
-                            listTile(
-                              icon: Icons.lan_outlined,
-                              title: 'Disable UDP',
-                              showTooltip: true,
-                              tooltipMessage:
-                                  '${translate('disable-udp-tip')}\n\n${translate('server-oss-not-support-tip')}',
-                              trailing: Switch(
-                                value: bind.mainGetOptionSync(
-                                        key: kOptionDisableUdp) ==
-                                    'Y',
-                                onChanged:
-                                    locked || isOptionFixed(kOptionDisableUdp)
-                                        ? null
-                                        : (value) async {
-                                            await bind.mainSetOption(
-                                                key: kOptionDisableUdp,
-                                                value: value ? 'Y' : 'N');
-                                            setState(() {});
-                                          },
-                              ),
-                            ),
-                        ],
-                      );
-                    }
-                  },
-                ),
-            ],
-          ),
-        ),
-      ],
-    );
+    return tmpWrapper();
   }
 }
 
