@@ -5,7 +5,7 @@ authors = ["IT-Breitenstein <info@breitenstein.it>"]
 edition = "2021"
 build= "build.rs"
 description = "IT-Breitenstein-Fernwartung"
-default-run = "IT-Breitenstein-Fernwartung"
+default-run = "rustdesk"
 rust-version = "1.75"
 
 [lib]
