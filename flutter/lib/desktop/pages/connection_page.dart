@@ -303,25 +303,34 @@ class _ConnectionPageState extends State<ConnectionPage>
 
   @override
   Widget build(BuildContext context) {
+    
     final isOutgoingOnly = bind.isOutgoingOnly();
-    return Column(
+
+    return ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: 300, minHeight: 300, maxHeight: 300, maxWidth: 300),
+        child: Column(
+      
       children: [
         Expanded(
             child: Column(
           children: [
+
             Row(
               children: [
+                
                 Flexible(child: _buildRemoteIDTextField(context)),
               ],
             ).marginOnly(top: 22),
+            
             SizedBox(height: 12),
-            Divider().paddingOnly(right: 12),
-            Expanded(child: PeerTabPage()),
+            // Divider().paddingOnly(right: 12),
+            // Expanded(child: PeerTabPage()),
           ],
         ).paddingOnly(left: 12.0)),
         if (!isOutgoingOnly) const Divider(height: 1),
         if (!isOutgoingOnly) OnlineStatusWidget()
       ],
+    )
     );
   }
 
@@ -350,7 +359,40 @@ class _ConnectionPageState extends State<ConnectionPage>
       child: Ink(
         child: Column(
           children: [
-            getConnectionPageTitle(context, false).marginOnly(bottom: 15),
+            Row(
+                      children: [SvgPicture.asset('assets/test.svg', height: 40, width: 80, fit: BoxFit.fill,).marginOnly(right: 40)],
+            ).marginOnly(bottom: 15),
+            Row(
+              children: [
+                Expanded(
+                    child: Row(
+                  children: [
+                    // Image(image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),),
+                    AutoSizeText(
+                      translate('Control Remote Desktop'),
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.merge(TextStyle(height: 1)),
+                    ).marginOnly(right: 4),
+                    Tooltip(
+                      waitDuration: Duration(milliseconds: 0),
+                      message: translate("id_input_tip"),
+                      child: Icon(
+                        Icons.help_outline_outlined,
+                        size: 16,
+                        color: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.color
+                            ?.withOpacity(0.5),
+                      ),
+                    ),
+                  ],
+                )),
+              ],
+            ).marginOnly(bottom: 15),
             Row(
               children: [
                 Expanded(
