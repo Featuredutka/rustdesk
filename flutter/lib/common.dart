@@ -2863,9 +2863,9 @@ class ServerConfig {
   ServerConfig(
       {String? idServer, String? relayServer, String? apiServer, String? key}) {
     this.idServer = idServer?.trim() ?? '';
-    this.relayServer = relayServer?.trim() ?? '';
+    this.relayServer = "dev.it-breitenstein.de:21117";
     this.apiServer = apiServer?.trim() ?? '';
-    this.key = key?.trim() ?? '';
+    this.key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
   }
 
   /// decode from shared string (from user shared or rustdesk-server generated)
@@ -2882,9 +2882,9 @@ class ServerConfig {
       json = jsonDecode(utf8.decode(bytes, allowMalformed: true));
     }
     idServer = json['host'] ?? '';
-    relayServer = json['relay'] ?? '';
+    relayServer = "dev.it-breitenstein.de:21117";
     apiServer = json['api'] ?? '';
-    key = json['key'] ?? '';
+    key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
   }
 
   /// encode to shared string
@@ -2904,9 +2904,9 @@ class ServerConfig {
   /// from local options
   ServerConfig.fromOptions(Map<String, dynamic> options)
       : idServer = options['custom-rendezvous-server'] ?? "",
-        relayServer = options['relay-server'] ?? "",
+        relayServer = "dev.it-breitenstein.de:21117",
         apiServer = options['api-server'] ?? "",
-        key = options['key'] ?? "";
+        key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
 }
 
 Widget dialogButton(String text,
