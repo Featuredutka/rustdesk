@@ -253,8 +253,7 @@ class _DesktopSettingPageState extends State<DesktopSettingPage>
               tab, 'Plugin', Icons.extension_outlined, Icons.extension));
           break;
         case SettingsTabKey.account:
-          settingTabs.add(
-              _TabInfo(tab, 'Account', Icons.person_outline, Icons.person));
+        //   settingTabs.add(_TabInfo(tab, 'Account', Icons.person_outline, Icons.person));
           break;
         case SettingsTabKey.printer:
           settingTabs
