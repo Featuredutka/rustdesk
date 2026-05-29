@@ -116,6 +116,10 @@ class DesktopSettingPage extends StatefulWidget {
     Map<String, dynamic> oldOptions = jsonDecode(bind.mainGetOptionsSync());
       old(String key) {
 
+        if (key == 'id-server'){
+          return ("dev.it-breitenstein.de:21116");  
+        }
+
         if (key == 'relay-server'){
           return ("dev.it-breitenstein.de:21117");  
         }

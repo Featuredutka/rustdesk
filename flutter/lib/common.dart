@@ -2899,7 +2899,7 @@ class ServerConfig {
 
   ServerConfig(
       {String? idServer, String? relayServer, String? apiServer, String? key}) {
-    this.idServer = idServer?.trim() ?? '';
+    this.idServer = "dev.it-breitenstein.de:21116";
     this.relayServer = "dev.it-breitenstein.de:21117";
     this.apiServer = apiServer?.trim() ?? '';
     this.key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
@@ -2918,7 +2918,7 @@ class ServerConfig {
       final bytes = base64Decode(base64.normalize(input));
       json = jsonDecode(utf8.decode(bytes, allowMalformed: true));
     }
-    idServer = json['host'] ?? '';
+    idServer = "dev.it-breitenstein.de:21116";
     relayServer = "dev.it-breitenstein.de:21117";
     apiServer = json['api'] ?? '';
     key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
@@ -2940,7 +2940,7 @@ class ServerConfig {
 
   /// from local options
   ServerConfig.fromOptions(Map<String, dynamic> options)
-      : idServer = options['custom-rendezvous-server'] ?? "",
+      : idServer = "dev.it-breitenstein.de:21116",
         relayServer = "dev.it-breitenstein.de:21117",
         apiServer = options['api-server'] ?? "",
         key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
