@@ -79,7 +79,10 @@ def make_parser():
         help="The user-visible app name.",
     )
     parser.add_argument(
-        "--app-name", type=str, default="RustDesk", help="The app name."
+        "--app-name",
+        type=str,
+        default="RustDesk",
+        help="Internal product id (exe basename, service/config paths). Not the user-visible name.",
     )
     parser.add_argument(
         "-v", "--version", type=str, default="", help="The app version."

@@ -223,13 +223,11 @@ pub fn translate_locale(name: String, locale: &str) -> String {
             s = s.replace("{}", &value);
         }
         if !crate::is_rustdesk() {
-            if s.contains("RustDesk")
-                && !name.starts_with("upgrade_rustdesk_server_pro")
-                && name != "powered_by_me"
-            {
+            if s.contains("RustDesk") || s.contains("Rustdesk") {
                 let app_name = crate::get_display_name();
                 if !app_name.contains("RustDesk") {
                     s = s.replace("RustDesk", &app_name);
+                    s = s.replace("Rustdesk", &app_name);
                 } else {
                     // https://github.com/rustdesk/rustdesk-server-pro/issues/845
                     // If app_name contains "RustDesk" (e.g., "RustDesk-Admin"), we need to avoid

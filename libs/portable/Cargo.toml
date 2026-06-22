@@ -27,9 +27,9 @@ native-windows-gui = {version = "1.0", default-features = false, features = ["an
 
 [package.metadata.winres]
 LegalCopyright = "Copyright © 2024 Breitenstein IT. All rights reserved."
-ProductName = "RustDesk"
+ProductName = "IT-Breitenstein Fernwartung"
 OriginalFilename = "rustdesk.exe"
-FileDescription = "ITB Fernwartung"
+FileDescription = "IT-Breitenstein Fernwartung"
 #ProductVersion = ""
 
 [target.'cfg(target_os="windows")'.build-dependencies]
