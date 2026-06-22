@@ -1006,8 +1006,13 @@ pub fn get_app_name() -> String {
 }
 
 #[inline]
+pub fn get_display_name() -> String {
+    hbb_common::config::DISPLAY_NAME.read().unwrap().clone()
+}
+
+#[inline]
 pub fn is_rustdesk() -> bool {
-    hbb_common::config::APP_NAME.read().unwrap().eq("RustDesk")
+    hbb_common::config::DISPLAY_NAME.read().unwrap().eq("RustDesk")
 }
 
 #[inline]
@@ -2202,6 +2207,7 @@ pub fn read_custom_client(config: &str) {
 
     if let Some(app_name) = data.remove("app-name") {
         if let Some(app_name) = app_name.as_str() {
+            *config::DISPLAY_NAME.write().unwrap() = app_name.to_owned();
             *config::APP_NAME.write().unwrap() = app_name.to_owned();
         }
     }
@@ -2282,7 +2288,7 @@ pub fn get_builtin_option(key: &str) -> String {
 
 #[inline]
 pub fn is_custom_client() -> bool {
-    get_app_name() != "RustDesk"
+    !is_rustdesk()
 }
 
 pub fn verify_login(_raw: &str, _id: &str) -> bool {

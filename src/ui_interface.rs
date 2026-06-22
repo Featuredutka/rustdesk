@@ -765,7 +765,7 @@ pub fn get_version() -> String {
 #[cfg(any(target_os = "android", target_os = "ios", feature = "flutter"))]
 #[inline]
 pub fn get_app_name() -> String {
-    crate::get_app_name()
+    crate::get_display_name()
 }
 
 #[cfg(windows)]

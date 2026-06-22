@@ -73,6 +73,12 @@ def make_parser():
         help='Connection type, e.g. "incoming", "outgoing". Default is empty, means incoming-outgoing',
     )
     parser.add_argument(
+        "--display-name",
+        type=str,
+        default="IT-Breitenstein Fernwartung",
+        help="The user-visible app name.",
+    )
+    parser.add_argument(
         "--app-name", type=str, default="RustDesk", help="The app name."
     )
     parser.add_argument(
@@ -311,7 +317,7 @@ def gen_custom_ARPSYSTEMCOMPONENT_True(args, dist_dir):
             f"{indent}<!--https://learn.microsoft.com/en-us/windows/win32/msi/property-reference-->\n"
         )
         lines_new.append(
-            f'{indent}<RegistryValue Type="string" Name="DisplayName" Value="{args.app_name}" />\n'
+            f'{indent}<RegistryValue Type="string" Name="DisplayName" Value="{args.display_name}" />\n'
         )
         lines_new.append(
             f'{indent}<RegistryValue Type="string" Name="DisplayIcon" Value="[INSTALLFOLDER_INNER]{args.app_name}.exe" />\n'
@@ -525,6 +531,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     app_name = args.app_name
+    display_name = args.display_name
     dist_dir = Path(sys.argv[0]).parent.joinpath(args.dist_dir).resolve()
 
     if not prepare_resources():
@@ -533,12 +540,12 @@ if __name__ == "__main__":
     if not init_global_vars(dist_dir, app_name, args):
         sys.exit(-1)
 
-    update_license_file(app_name)
+    update_license_file(display_name)
 
     if not gen_pre_vars(args, dist_dir):
         sys.exit(-1)
 
-    if app_name != "RustDesk":
+    if display_name != "RustDesk":
         replace_component_guids_in_wxs()
 
     if not gen_upgrade_info():
@@ -556,5 +563,5 @@ if __name__ == "__main__":
     if not gen_custom_dialog_bitmaps():
         sys.exit(-1)
 
-    replace_app_name_in_langs(args.app_name)
-    replace_app_name_in_custom_actions(args.app_name)
+    replace_app_name_in_langs(display_name)
+    replace_app_name_in_custom_actions(display_name)
