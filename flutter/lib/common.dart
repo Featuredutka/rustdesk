@@ -2899,10 +2899,10 @@ class ServerConfig {
 
   ServerConfig(
       {String? idServer, String? relayServer, String? apiServer, String? key}) {
-    this.idServer = "dev.it-breitenstein.de:21116";
-    this.relayServer = "dev.it-breitenstein.de:21117";
+    this.idServer = idServer?.trim() ?? kPredefinedIdServer;
+    this.relayServer = relayServer?.trim() ?? kPredefinedRelayServer;
     this.apiServer = apiServer?.trim() ?? '';
-    this.key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
+    this.key = key?.trim() ?? kPredefinedServerKey;
   }
 
   /// decode from shared string (from user shared or rustdesk-server generated)
@@ -2918,10 +2918,10 @@ class ServerConfig {
       final bytes = base64Decode(base64.normalize(input));
       json = jsonDecode(utf8.decode(bytes, allowMalformed: true));
     }
-    idServer = "dev.it-breitenstein.de:21116";
-    relayServer = "dev.it-breitenstein.de:21117";
-    apiServer = json['api'] ?? '';
-    key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
+    idServer = (json['host'] ?? kPredefinedIdServer).toString();
+    relayServer = (json['relay'] ?? kPredefinedRelayServer).toString();
+    apiServer = (json['api'] ?? '').toString();
+    key = (json['key'] ?? kPredefinedServerKey).toString();
   }
 
   /// encode to shared string
@@ -2940,10 +2940,39 @@ class ServerConfig {
 
   /// from local options
   ServerConfig.fromOptions(Map<String, dynamic> options)
-      : idServer = "dev.it-breitenstein.de:21116",
-        relayServer = "dev.it-breitenstein.de:21117",
-        apiServer = options['api-server'] ?? "",
-        key = "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
+      : idServer = _serverOptionOrDefault(
+            options, 'custom-rendezvous-server', kPredefinedIdServer),
+        relayServer =
+            _serverOptionOrDefault(options, 'relay-server', kPredefinedRelayServer),
+        apiServer = (options['api-server'] ?? '').toString().trim(),
+        key = _serverOptionOrDefault(options, 'key', kPredefinedServerKey);
+}
+
+String _serverOptionOrDefault(
+    Map<String, dynamic> options, String key, String defaultValue) {
+  final value = (options[key] ?? '').toString().trim();
+  return value.isEmpty ? defaultValue : value;
+}
+
+bool _predefinedServerConfigApplied = false;
+
+/// Apply predefined ID/relay/key settings once per app session on launch.
+Future<bool> applyPredefinedServerConfigOnLaunch(
+    {bool showFeedback = false}) async {
+  if (_predefinedServerConfigApplied) {
+    return true;
+  }
+  _predefinedServerConfigApplied = true;
+  final result =
+      await setServerConfig(null, null, ServerConfig());
+  if (showFeedback) {
+    if (result) {
+      showToast(translate('Server updated'));
+    } else {
+      showToast(translate('Server update failure'));
+    }
+  }
+  return result;
 }
 
 Widget dialogButton(String text,

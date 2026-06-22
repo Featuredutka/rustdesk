@@ -216,6 +216,12 @@ const String kOptionKeepAwakeDuringOutgoingSessions = "keep-awake-during-outgoin
 
 const String kOptionShowMobileAction = "showMobileActions";
 
+// Predefined ID/relay server settings applied on app launch.
+const String kPredefinedIdServer = "dev.it-breitenstein.de:21116";
+const String kPredefinedRelayServer = "dev.it-breitenstein.de:21117";
+const String kPredefinedServerKey =
+    "Npglzp1NfKE67GWoSakgjEyTQ+HvIVkbrWoSX44+BK0=";
+
 const String kUrlActionClose = "close";
 
 const String kTabLabelHomePage = "Home";
