@@ -96,6 +96,8 @@ lazy_static::lazy_static! {
     pub static ref SOFTWARE_UPDATE_URL: Arc<Mutex<String>> = Default::default();
     pub static ref DEVICE_ID: Arc<Mutex<String>> = Default::default();
     pub static ref DEVICE_NAME: Arc<Mutex<String>> = Default::default();
+    pub static ref DISPLAY_NAME: RwLock<String> =
+        RwLock::new("IT-Breitenstein Fernwartung".to_owned());
     static ref PUBLIC_IPV6_ADDR: Arc<Mutex<(Option<SocketAddr>, Option<Instant>)>> = Default::default();
 }
 
@@ -1007,12 +1009,12 @@ pub fn get_app_name() -> String {
 
 #[inline]
 pub fn get_display_name() -> String {
-    hbb_common::config::DISPLAY_NAME.read().unwrap().clone()
+    DISPLAY_NAME.read().unwrap().clone()
 }
 
 #[inline]
 pub fn is_rustdesk() -> bool {
-    hbb_common::config::DISPLAY_NAME.read().unwrap().eq("RustDesk")
+    DISPLAY_NAME.read().unwrap().eq("RustDesk")
 }
 
 #[inline]
@@ -2207,7 +2209,7 @@ pub fn read_custom_client(config: &str) {
 
     if let Some(app_name) = data.remove("app-name") {
         if let Some(app_name) = app_name.as_str() {
-            *config::DISPLAY_NAME.write().unwrap() = app_name.to_owned();
+            *DISPLAY_NAME.write().unwrap() = app_name.to_owned();
             *config::APP_NAME.write().unwrap() = app_name.to_owned();
         }
     }

@@ -925,7 +925,7 @@ fn is_user_main_ipc_scope_cli_command(args: &[String]) -> bool {
 
 #[inline]
 fn is_cli_setting_change_disabled() -> bool {
-    let option = config::keys::OPTION_ALLOW_COMMAND_LINE_SETTINGS_WHEN_SETTINGS_DISABLED;
+    let option = "allow-command-line-settings-when-settings-disabled";
     let allow_command_line_settings =
         config::option2bool(option, &crate::get_builtin_option(option));
     config::is_disable_settings() && !allow_command_line_settings
