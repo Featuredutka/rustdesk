@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>IT-Breitenstein Fernwartung</string>
+	<string>ITB-Fernwartung</string>
 	<key>CFBundleDisplayName</key>
-	<string>IT-Breitenstein Fernwartung</string>
+	<string>ITB-Fernwartung</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

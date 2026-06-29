@@ -417,7 +417,7 @@ def build_flutter_dmg(version, features):
     mac_arch = 'arm64' if platform.machine().lower() in ('arm64', 'aarch64') else 'x86_64'
     system2(
         f'FLUTTER_XCODE_ARCHS={mac_arch} FLUTTER_XCODE_ONLY_ACTIVE_ARCH=YES flutter build macos --release')
-    system2('cp -rf ../target/release/service ./build/macos/Build/Products/Release/RustDesk.app/Contents/MacOS/')
+    system2('cp -rf ../target/release/service ./build/macos/Build/Products/Release/ITB-Fernwartung.app/Contents/MacOS/')
     '''
     system2(
         "create-dmg --volname \"IT-Breitenstein Fernwartung Installer\" --window-pos 200 120 --window-size 800 400 --icon-size 100 --app-drop-link 600 185 --icon IT-Breitenstein Fernwartung.app 200 190 --hide-extension IT-Breitenstein Fernwartung.app rustdesk.dmg ./build/macos/Build/Products/Release/IT-Breitenstein Fernwartung.app")
