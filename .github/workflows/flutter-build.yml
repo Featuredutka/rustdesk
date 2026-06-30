@@ -1117,12 +1117,18 @@ jobs:
           name: librustdesk.so.${{ matrix.job.target }}
           path: ./target/${{ matrix.job.target }}/release/liblibrustdesk.so
 
-      - name: Generate Android launcher icons
+      - name: Generate Android icons
         run: |
+          pip install pillow
+          python3 res/generate_android_notification_icon.py
           cp res/icon.png flutter/assets/icon.png
           pushd flutter
+          flutter pub get
           dart run flutter_launcher_icons
           popd
+          rm -f flutter/android/app/src/main/res/mipmap-*/ic_launcher_foreground.png
+          sed -i 's|@mipmap/ic_launcher_foreground|@drawable/ic_launcher_foreground|g' \
+            flutter/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
 
       - name: Build rustdesk
         shell: bash
@@ -1333,12 +1339,18 @@ jobs:
           name: librustdesk.so.i686-linux-android
           path: ./flutter/android/app/src/main/jniLibs/x86
 
-      - name: Generate Android launcher icons
+      - name: Generate Android icons
         run: |
+          pip install pillow
+          python3 res/generate_android_notification_icon.py
           cp res/icon.png flutter/assets/icon.png
           pushd flutter
+          flutter pub get
           dart run flutter_launcher_icons
           popd
+          rm -f flutter/android/app/src/main/res/mipmap-*/ic_launcher_foreground.png
+          sed -i 's|@mipmap/ic_launcher_foreground|@drawable/ic_launcher_foreground|g' \
+            flutter/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
 
       - name: Build rustdesk
         shell: bash
