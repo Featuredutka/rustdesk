@@ -1127,6 +1127,7 @@ jobs:
           dart run flutter_launcher_icons
           popd
           rm -f flutter/android/app/src/main/res/mipmap-*/ic_launcher_foreground.png
+          rm -f flutter/android/app/src/main/res/values/ic_launcher_background.xml
           sed -i 's|@mipmap/ic_launcher_foreground|@drawable/ic_launcher_foreground|g' \
             flutter/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
 
@@ -1349,6 +1350,7 @@ jobs:
           dart run flutter_launcher_icons
           popd
           rm -f flutter/android/app/src/main/res/mipmap-*/ic_launcher_foreground.png
+          rm -f flutter/android/app/src/main/res/values/ic_launcher_background.xml
           sed -i 's|@mipmap/ic_launcher_foreground|@drawable/ic_launcher_foreground|g' \
             flutter/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
 
